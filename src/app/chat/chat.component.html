@@ -1,0 +1,20 @@
+
+
+<div class="mainDiv" fxLayout="row" >
+    <div class="userDiv" fxFlex="30">
+        <h3>Users:</h3>
+        <div *ngFor="let user of users">
+            <h5>{{user.name}}</h5>
+        </div>
+    </div>
+
+    <div class="chatDiv" fxFlex="20">
+        <h2>Chat</h2>
+        <div *ngFor="let message of messageList">
+            {{message.sender}}  {{message.message}}
+        </div>
+        
+        <input [(ngModel)]="newMessage.message" (keyup)="$event.keyCode == 13 && sendMessage()" />
+        <button (click)="sendMessage()">Send Message</button>
+    </div>
+</div>
