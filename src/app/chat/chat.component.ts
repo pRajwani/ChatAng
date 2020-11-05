@@ -27,13 +27,23 @@ export class ChatComponent implements OnInit {
   }
   ngOnInit() {
     
+    this.chatService.getOldMessages().subscribe((messages)=>{
+      messages.forEach(message => {
+        if(message.sender==localStorage.getItem('name'))
+          message.sender="Me"
+        this.pushMessage(message)
+      });
+    })
+    
     this.chatService.getUsers().subscribe((users)=>{
       users.forEach(user => {
         this.users.push(user)
       });
     })
     this.chatService.getMessages().subscribe((msg)=>{
-      this.messageList.push(msg)
+      console.log(msg)
+      this.messageList.push({message:msg})
+      console.log(this.messageList)
     })
     
   }

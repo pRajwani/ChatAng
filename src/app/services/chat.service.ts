@@ -20,9 +20,16 @@ export class ChatService {
       this.socket.on('new-msg',(message)=>{
         observer.next(message);
       })
+      this.socket.on('message',(data)=>{
+        observer.next(data)
+      })
     })
 }
 public getUsers():Observable<any>{
   return this.http.get('https://localhost:3443/users/getUsers')
+}
+
+public getOldMessages():Observable<any>{
+  return this.http.get('https://localhost:3443/message')
 }
 }

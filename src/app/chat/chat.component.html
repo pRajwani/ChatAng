@@ -1,20 +1,22 @@
 
 
 <div class="mainDiv" fxLayout="row" >
-    <div class="userDiv" fxFlex="30">
-        <h3>Users:</h3>
+    <div fxFlexOffset="20"></div>
+    <div class="userDiv" fxFlex="30" fxLayout='column' fxLayoutAlign="center center">
+        <h1>Users:</h1>
         <div *ngFor="let user of users">
-            <h5>{{user.name}}</h5>
+            <h3>{{user.name}}</h3>
         </div>
     </div>
 
-    <div class="chatDiv" fxFlex="20">
+    <div class="chatDiv" fxFlex="20" fxLayout="column" fxLayoutAlign="center">
         <h2>Chat</h2>
         <div *ngFor="let message of messageList">
             {{message.sender}}  {{message.message}}
         </div>
-        
+        <span fxLayout="row">
         <input [(ngModel)]="newMessage.message" (keyup)="$event.keyCode == 13 && sendMessage()" />
-        <button (click)="sendMessage()">Send Message</button>
+        <button (click)="sendMessage()">Send</button>
+        </span>
     </div>
 </div>
