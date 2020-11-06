@@ -1,47 +1,65 @@
-.login-button {
-    margin-top: 80px;
-    display: inline-block;
-    cursor: pointer;
-  }
-  
-  .login-button:hover {
-    background: rgba(59, 89, 152, .1);
-  }
-  
-  .login-facebook-icon {
-    background-color: #3b5998;
-    color: #fff;
-    font-family: Arial, sans-serif;
-    font-weight: 400;
-    font-size: 36px;
-    line-height: 48px;
-    text-align: center;
-    height: 48px;
-    width: 58px;   
-    float: left;
-  }
-  
-  .login-facebook-text {
-    color: #3b5998;
-    font-family: HelveticaNeueW01-55Roma, HelveticaNeueW02-55Roma, HelveticaNeueW10-55Roma, sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 46px;
-    text-align: center;
-    width: 239px;
-    height: 46px;
-    padding-left: 58px;
-    border: 1px solid #3b5998;
-  }
+.chatApp {
+  height: 60vh;
+  width: 20vw;
+  border-right: 2px solid grey;
+}
 
-  .button{
-      width: 300px;
-    background-color: rgba($color: #bdbdbd, $alpha: 1.0);
-     // margin: 40vh;
-      height: 200px;
-    margin-top: 35vh;
-    //margin-left: 45vh;
-      -webkit-box-shadow: -2px 0px 14px -2px rgba(117,112,117,0.62);
-        -moz-box-shadow: -2px 0px 14px -2px rgba(117,112,117,0.62);
-        box-shadow: -2px 0px 14px -2px rgba(117,112,117,0.62);
-  }
+.container {
+  height: 100vh;
+}
+
+.loginBox {
+  height: 60vh;
+  width: 40vw;
+}
+.example-full-width {
+  width: 100%;
+}
+.login-button {
+  margin-top: 80px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background: rgba(59, 89, 152, 0.1);
+}
+
+.login-facebook-icon {
+  background-color: #3b5998;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 48px;
+  text-align: center;
+  height: 48px;
+  width: 58px;
+  float: left;
+}
+
+.login-facebook-text {
+  color: #3b5998;
+  font-family: HelveticaNeueW01-55Roma, HelveticaNeueW02-55Roma,
+    HelveticaNeueW10-55Roma, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 46px;
+  text-align: center;
+  width: 239px;
+  height: 46px;
+  padding-left: 58px;
+  border: 1px solid #3b5998;
+}
+
+.button {
+  width: 300px;
+  background-color: rgba($color: #bdbdbd, $alpha: 1);
+  // margin: 40vh;
+  height: 200px;
+  margin-top: 35vh;
+  //margin-left: 45vh;
+  -webkit-box-shadow: -2px 0px 14px -2px rgba(117, 112, 117, 0.62);
+  -moz-box-shadow: -2px 0px 14px -2px rgba(117, 112, 117, 0.62);
+  box-shadow: -2px 0px 14px -2px rgba(117, 112, 117, 0.62);
+}

@@ -1,13 +1,36 @@
-<div fxLayout="column">
-    <div fxFlex=""></div>
-<div fxLayoutAlign="center center">
-<div class="button">
-    <a href="https://localhost:3443/fblogin">
+<div class="container" fxLayout="row" fxLayoutAlign="center center">
+  <div class="chatApp" fxLayoutAlign="center center">
+    <h1>Chat App</h1>
+  </div>
+  <div class="loginBox" fxLayout="column" fxlayoutAlign="center center">
+    <div fxLayoutAlign="center center">
+      <a href="https://localhost:3443/fblogin">
         <div class="login-button">
-            <div class="login-facebook-icon">f</div>
-            <div class="login-facebook-text">Continue with Facebook</div>
+          <div class="login-facebook-icon">f</div>
+          <div class="login-facebook-text">Continue with Facebook</div>
         </div>
-    </a>
-</div>
-</div>
+      </a>
+    </div>
+    <br />
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <h3>or</h3>
+      <div fxLayoutAlign="center center">
+        <mat-form-field>
+          <mat-label>Username</mat-label>
+          <input matInput />
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input matInput />
+        </mat-form-field>
+      </div>
+
+      <button mat-raised-button color="primary">Login</button>
+      <br />
+      <div>Don't have an account? <a routerLink="/signup">Sign up</a></div>
+    </div>
+  </div>
 </div>
