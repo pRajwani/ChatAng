@@ -46,6 +46,8 @@
 }
 
 .chatBox {
+  overflow-y: scroll;
+  height: 80vh;
 }
 .chatDiv {
   margin-top: 10vh;

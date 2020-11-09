@@ -3,6 +3,7 @@
     <h1>Chat App</h1>
   </div>
   <div class="loginBox" fxLayout="column" fxlayoutAlign="center center">
+    <h1 fxLayoutAlign="center center">Login to Join Chat</h1>
     <div fxLayoutAlign="center center">
       <a href="https://localhost:3443/fblogin">
         <div class="login-button">
@@ -16,19 +17,19 @@
       <h3>or</h3>
       <div fxLayoutAlign="center center">
         <mat-form-field>
-          <mat-label>Username</mat-label>
-          <input matInput />
+          <mat-label>Enter email-id</mat-label>
+          <input [(ngModel)]="userData.username" matInput />
         </mat-form-field>
       </div>
 
       <div>
         <mat-form-field>
-          <mat-label>Password</mat-label>
-          <input matInput />
+          <mat-label>Enter Password</mat-label>
+          <input [(ngModel)]="userData.password" matInput />
         </mat-form-field>
       </div>
 
-      <button mat-raised-button color="primary">Login</button>
+      <button mat-raised-button color="primary" (click)="localLogin()" >Login</button>
       <br />
       <div>Don't have an account? <a routerLink="/signup">Sign up</a></div>
     </div>

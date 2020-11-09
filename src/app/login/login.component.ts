@@ -10,6 +10,10 @@ import { ActivatedRoute, Router } from "@angular/router";
 export class LoginComponent implements OnInit {
   code
   username
+  userData={
+    username:'',
+    password:''
+  }
   constructor(private http:HttpClient,private route:Router,private router:ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -34,8 +38,17 @@ export class LoginComponent implements OnInit {
 }
 
   facebookLogin(){
-    this.http.get('https://localhost:3443/fblogin').subscribe((status)=>{
+    this.http.get('https://localhost:3443/fbcallback').subscribe((status)=>{
       if(status==true)
+        this.route.navigate(['/chat'])
+        else 
+        alert('cannot login')
+    })
+  }
+
+  localLogin(){
+    this.http.post('https://localhost:3443/localLogin',this.userData).subscribe((status:any)=>{
+      if(status.success==true)
         this.route.navigate(['/chat'])
         else 
         alert('cannot login')
