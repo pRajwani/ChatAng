@@ -18,11 +18,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { SignupComponent } from './signup/signup.component';
 
 const config: SocketIoConfig = { url: 'https://localhost:3443', options: {} };
 
 @NgModule({
-  declarations: [AppComponent, ChatComponent, LoginComponent],
+  declarations: [AppComponent, ChatComponent, LoginComponent, SignupComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
