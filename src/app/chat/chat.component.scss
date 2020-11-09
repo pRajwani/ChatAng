@@ -46,7 +46,14 @@
 }
 
 .chatBox {
+  overflow-y: scroll;
 }
+
+::-webkit-scrollbar {
+  width: 0px; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+
 .chatDiv {
   margin-top: 10vh;
   background-color: rgb(216, 216, 216);

@@ -22,27 +22,31 @@
     </div>
   </div>
 
-  <div fxFlex fxLayout="column">
+  <div class="chatSection " fxFlex fxLayout="column">
+    <!--Item 1-->
     <mat-toolbar>
       <span>Chat Section</span>
     </mat-toolbar>
-    <div class="leftMargin" fxFlex fxLayout="column">
-      <div class="chatBox" *ngFor="let message of messageList">
+    <!--Item 2-->
+    <div class="chatBox leftMargin" #scrollMe [scrollTop]="scrollMe.scrollHeight" fxFlex fxLayout="column">
+      <div #messages *ngFor="let message of messageList">
         {{ message.sender }} {{ message.message }}
       </div>
-      <div fxLayout="row">
-        <mat-form-field class="chatTextbox">
-          <input
-            matInput
-            placeholder="Enter your message"
-            [(ngModel)]="newMessage.message"
-            (keyup)="$event.keyCode == 13 && sendMessage()"
-          />
-        </mat-form-field>
-        <button mat-icon-button color="primary" (click)="sendMessage()">
-          <mat-icon>send</mat-icon>
-        </button>
-      </div>
     </div>
+    <!--Item 3-->
+    <div class="leftMargin" fxLayout="row">
+      <mat-form-field class="chatTextbox">
+        <input
+          matInput
+          placeholder="Enter your message"
+          [(ngModel)]="newMessage.message"
+          (keyup)="$event.keyCode == 13 && sendMessage()"
+        />
+      </mat-form-field>
+      <button mat-icon-button color="primary" (click)="sendMessage()">
+        <mat-icon>send</mat-icon>
+      </button>
+    </div>
+    
   </div>
 </div>

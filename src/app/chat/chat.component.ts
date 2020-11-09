@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { ChatService } from '../services/chat.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -7,13 +7,19 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, AfterViewInit {
+
+  @ViewChildren('messages') messages: QueryList<any>
+  @ViewChild('scrollMe') myScrollContainer
+  disableScrollDown = false;
   newMessage = {
     sender: localStorage.getItem('name'),
     message: '',
   };
   messageList = [];
   users = [];
+  chatbox;
+
   constructor(
     private chatService: ChatService,
     private snackbar: MatSnackBar
@@ -25,6 +31,31 @@ export class ChatComponent implements OnInit {
     this.getMessages();
     this.getNotification();
   }
+
+  ngAfterViewInit() {
+    this.scrollToBottom();
+    this.messages.changes.subscribe(this.scrollToBottom);
+  }
+
+  scrollToBottom() {
+    console.log("scrollToBottom");
+    console.log(this.myScrollContainer.nativeElement.scrollHeight)
+    this.myScrollContainer.nativeElement.scrollTop = 405;
+    try {
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch (err) { console.log(err) }
+  }
+
+
+  onScroll() {
+    let element = this.myScrollContainer.nativeElement;
+    let atBottom = element.scrollHeight - element.scrollTop === element.clientHeight;
+    if(this.disableScrollDown && atBottom)
+      this.disableScrollDown = false;
+    else
+      this.disableScrollDown = true;
+  }
+
 
   sendMessage() {
     var localMessage = {
