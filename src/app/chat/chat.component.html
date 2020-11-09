@@ -1,4 +1,4 @@
-<mat-toolbar>
+<mat-toolbar color=primary>
   <span>My App</span>
   <span class="example-spacer"></span>
   <button
@@ -24,19 +24,18 @@
 
   <div class="chatSection " fxFlex fxLayout="column">
     <!--Item 1-->
-    <mat-toolbar>
+    <mat-toolbar >
       <span>Chat Section</span>
     </mat-toolbar>
-<<<<<<< HEAD
-    <!--Item 2-->
-    <div class="chatBox leftMargin" #scrollMe [scrollTop]="scrollMe.scrollHeight" fxFlex fxLayout="column">
-      <div #messages *ngFor="let message of messageList">
-        {{ message.sender }} {{ message.message }}
+    <!-- Item 2 -->
+    <div class="leftMargin chatBox"  #scrollme [scrollTop]="scrollme.scrollHeight" fxFlex fxLayout="column" >
+      <div class="float talk-bubble tri-right left-top talktext" [ngStyle]="{'margin-left': message.margin}" *ngFor="let message of messageList">
+        <p><small>{{ message.sender }} : </small></p>{{ message.message }}
       </div>
     </div>
-    <!--Item 3-->
-    <div class="leftMargin" fxLayout="row">
-      <mat-form-field class="chatTextbox">
+    <!-- Item 3 -->
+    <div fxLayout="row">
+      <mat-form-field class="chatTextbox leftMargin">
         <input
           matInput
           placeholder="Enter your message"
@@ -48,26 +47,5 @@
         <mat-icon>send</mat-icon>
       </button>
     </div>
-    
-=======
-    <div class="leftMargin chatBox" fxFlex fxLayout="column">
-      <div  #scroll [scrollTop]="scroll.scrollHeight" *ngFor="let message of messageList">
-        {{ message.sender }} {{ message.message }}
-      </div>
-    </div>
-        <div fxLayout="row">
-          <mat-form-field class="chatTextbox">
-            <input
-              matInput
-              placeholder="Enter your message"
-              [(ngModel)]="newMessage.message"
-              (keyup)="$event.keyCode == 13 && sendMessage()"
-            />
-          </mat-form-field>
-          <button mat-icon-button color="primary" (click)="sendMessage()">
-            <mat-icon>send</mat-icon>
-          </button>
-        </div>
->>>>>>> 5f8fa1b11790e468ee58ec2233534bd6d5f3cab5
   </div>
 </div>

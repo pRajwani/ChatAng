@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 export class LoginComponent implements OnInit {
   code
   username
-  userData={
+  userData={ 
     username:'',
     password:''
   }
@@ -48,8 +48,10 @@ export class LoginComponent implements OnInit {
 
   localLogin(){
     this.http.post('https://localhost:3443/localLogin',this.userData).subscribe((status:any)=>{
-      if(status.success==true)
+      if(status.success==true) {
+        localStorage.setItem('name', status.user)
         this.route.navigate(['/chat'])
+      }
         else 
         alert('cannot login')
     })

@@ -1,22 +1,3 @@
-.mainDiv {
-  margin: 5vh;
-  border-style: double;
-  border: firebrick;
-  border-radius: 5px;
-  border-width: 1vh;
-  background-color: floralwhite;
-  height: 90%;
-}
-
-.userDiv {
-  margin-top: 10vh;
-  background-color: rgb(216, 216, 216);
-  border-radius: 2px;
-  margin-bottom: 10vh;
-  margin-left: 5vh;
-  margin-right: 5vh;
-}
-
 .example-spacer {
   flex: 1 1 auto;
 }
@@ -47,10 +28,21 @@
 
 .chatBox {
   overflow-y: scroll;
-<<<<<<< HEAD
-=======
-  height: 80vh;
->>>>>>> 5f8fa1b11790e468ee58ec2233534bd6d5f3cab5
+  float: right;
+}
+
+.float {
+  margin-bottom: 2px;
+  width: 30vw;
+  background-color: greenyellow;
+  float: right;
+}
+.float-out {
+  margin-bottom: 2px;
+  width: 50vw;
+  background-color: greenyellow;
+  float: right;
+  margin-left: auto;
 }
 
 ::-webkit-scrollbar {
@@ -58,14 +50,75 @@
   background: transparent; /* Optional: just make scrollbar invisible */
 }
 
-.chatDiv {
-  margin-top: 10vh;
-  background-color: rgb(216, 216, 216);
-  border-radius: 2px;
-  margin-bottom: 10vh;
-  margin-left: 5vh;
-  margin-right: 5vh;
+.talk-bubble {
+  margin: 20px;
+  display: inline-block;
+  position: relative;
+  width: 350px;
+  height: auto;
+  background-color: lightyellow;
 }
-.messages {
-  margin-left: 50px;
+
+.talk-bubble-out {
+  margin: 30px;
+  display: inline-block;
+  position: relative;
+  width: 350px;
+  height: auto;
+  background-color: lightyellow;
+}
+
+.tri-right.border.left-top:before {
+  content: " ";
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: -40px;
+  right: auto;
+  top: -8px;
+  bottom: auto;
+  border: 32px solid;
+  border-color: #666 transparent transparent transparent;
+}
+
+.tri-right.border.left-top-out:before {
+  content: " ";
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: auto;
+  right: -40px;
+  top: -8px;
+  bottom: auto;
+  border: 32px solid;
+  border-color: #666 transparent transparent transparent;
+}
+.tri-right.left-top:after {
+  content: " ";
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: -20px;
+  right: auto;
+  top: 0px;
+  bottom: auto;
+  border: 22px solid;
+  border-color: lightyellow transparent transparent transparent;
+}
+.tri-right.left-top-out:after {
+  content: " ";
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: auto;
+  right: -20px;
+  top: 0px;
+  bottom: auto;
+  border: 22px solid;
+  border-color: lightyellow transparent transparent transparent;
+}
+.talktext {
+  padding: 1em;
+  text-align: left;
+  line-height: 1.5em;
 }
