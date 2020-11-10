@@ -2,8 +2,12 @@
   flex: 1 1 auto;
 }
 
+.toolbar {
+  background-color: #0048aa;
+  color: aliceblue;
+}
 .container {
-  height: 80vh;
+  height: 90vh;
 }
 
 .leftMargin {
@@ -11,9 +15,37 @@
 }
 .userList {
   border-right: 1px solid grey;
+  background-color: #f5f5f5;
+  overflow-y: scroll;
 }
 
-.chatSection {
+.searchUser {
+  border: none;
+  background-color: #f5f5f5;
+
+  padding: 1em;
+  transition: background-color 300ms ease-in;
+}
+
+.searchUser:hover {
+  background-color: rgb(223, 223, 223);
+}
+
+.searchUser:focus {
+  outline: none;
+  background-color: rgb(223, 223, 223);
+}
+.user {
+  background-color: #0048aa;
+  color: aliceblue;
+  padding: 1em;
+  text-align: left;
+  overflow: hidden;
+  transition: background-color 200ms ease-in-out;
+}
+
+.user:hover {
+  background-color: #0b418d;
 }
 
 .chatTextbox {
@@ -31,8 +63,11 @@
   float: right;
 }
 
+.sendbutton {
+  color: #0048aa;
+}
+
 .float {
-  margin-bottom: 2px;
   width: 30vw;
   background-color: greenyellow;
   float: right;
@@ -51,21 +86,20 @@
 }
 
 .talk-bubble {
-  margin: 20px;
+  margin: 3%;
   display: inline-block;
   position: relative;
   width: 350px;
   height: auto;
-  background-color: lightyellow;
 }
 
 .talk-bubble-out {
-  margin: 30px;
+  margin: 0px;
   display: inline-block;
   position: relative;
   width: 350px;
   height: auto;
-  background-color: lightyellow;
+  background-color: grey;
 }
 
 .tri-right.border.left-top:before {
@@ -81,7 +115,7 @@
   border-color: #666 transparent transparent transparent;
 }
 
-.tri-right.border.left-top-out:before {
+.tri-right-out.border.left-top-out:before {
   content: " ";
   position: absolute;
   width: 0;
@@ -103,9 +137,9 @@
   top: 0px;
   bottom: auto;
   border: 22px solid;
-  border-color: lightyellow transparent transparent transparent;
+  border-color: #f5f5f5 transparent transparent transparent;
 }
-.tri-right.left-top-out:after {
+.tri-right-out.left-top-out:after {
   content: " ";
   position: absolute;
   width: 0;
@@ -115,7 +149,7 @@
   top: 0px;
   bottom: auto;
   border: 22px solid;
-  border-color: lightyellow transparent transparent transparent;
+  border-color: #0048aa transparent transparent transparent;
 }
 .talktext {
   padding: 1em;

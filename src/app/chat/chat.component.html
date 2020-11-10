@@ -1,4 +1,4 @@
-<mat-toolbar color=primary>
+<mat-toolbar class='toolbar'>
   <span>My App</span>
   <span class="example-spacer"></span>
   <button
@@ -13,12 +13,12 @@
 <div class="container" fxLayout="row">
   <div class="userList" fxFlex="20" fxLayout="column">
     <mat-toolbar>
-      <span>User List</span>
+      <span>Friends</span>
     </mat-toolbar>
-    <div class="leftMargin">
-      <div *ngFor="let user of users">
-        <h3>{{ user.name }}</h3>
-      </div>
+    <input class="searchUser" [(ngModel)]="query" type="text" placeholder="Type here to find your friend">
+      <div class="user leftMargin" *ngFor="let user of users | search:'name':query">
+        <h4>{{ user.name }}</h4>
+        <small>Last message</small>
     </div>
   </div>
 
@@ -29,11 +29,22 @@
     </mat-toolbar>
     <!-- Item 2 -->
     <div class="leftMargin chatBox"  #scrollme [scrollTop]="scrollme.scrollHeight" fxFlex fxLayout="column" >
-      <div class="float talk-bubble tri-right left-top talktext" [ngStyle]="{'margin-left': message.margin}" *ngFor="let message of messageList">
+      <div 
+        class="float talk-bubble tri-right left-top talktext" 
+        [ngClass]="{'left-top': message.sender != 'Me',
+                    'left-top-out': message.sender == 'Me', 
+                    'tri-right': message.sender != 'Me', 
+                    'tri-right-out': message.sender == 'Me'
+                   }"
+        [ngStyle]="{'margin-left': message.sender == 'Me' ? 'auto':'20px', 
+                    'color': message.sender == 'Me' ? 'aliceblue':'#000',
+                    'background-color': message.sender == 'Me' ? '#0048AA':' #f5f5f5'
+                    }" 
+        *ngFor="let message of messageList">
         <p><small>{{ message.sender }} : </small></p>{{ message.message }}
       </div>
     </div>
-    <!-- Item 3 -->
+    <!-- Item 3 --> 
     <div fxLayout="row">
       <mat-form-field class="chatTextbox leftMargin">
         <input
@@ -43,7 +54,7 @@
           (keyup)="$event.keyCode == 13 && sendMessage()"
         />
       </mat-form-field>
-      <button mat-icon-button color="primary" (click)="sendMessage()">
+      <button mat-icon-button class="sendbutton" (click)="sendMessage()">
         <mat-icon>send</mat-icon>
       </button>
     </div>
