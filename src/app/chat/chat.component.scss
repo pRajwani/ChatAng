@@ -33,14 +33,14 @@
 
 .float {
   margin-bottom: 2px;
-  width: 30vw;
-  background-color: greenyellow;
+  width: 20vw;
+  //background-color: greenyellow;
   float: right;
 }
 .float-out {
   margin-bottom: 2px;
-  width: 50vw;
-  background-color: greenyellow;
+  width: 30vw;
+  //background-color: greenyellow;
   float: right;
   margin-left: auto;
 }
@@ -50,13 +50,13 @@
   background: transparent; /* Optional: just make scrollbar invisible */
 }
 
-.talk-bubble {
+/*.talk-bubble {
   margin: 20px;
   display: inline-block;
   position: relative;
   width: 350px;
   height: auto;
-  background-color: lightyellow;
+  //background-color: lightyellow;
 }
 
 .talk-bubble-out {
@@ -65,8 +65,8 @@
   position: relative;
   width: 350px;
   height: auto;
-  background-color: lightyellow;
-}
+  // background-color: lightyellow;
+}*/
 
 .tri-right.border.left-top:before {
   content: " ";
@@ -121,4 +121,8 @@
   padding: 1em;
   text-align: left;
   line-height: 1.5em;
+}
+
+.sender {
+  margin-left: inherit;
 }

@@ -40,6 +40,7 @@ const config: SocketIoConfig = { url: 'https://localhost:3443', options: {} };
     MatSnackBarModule,
     MatToolbarModule,
     MatIconModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent],

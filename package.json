@@ -22,6 +22,8 @@
     "@angular/platform-browser": "~10.1.0",
     "@angular/platform-browser-dynamic": "~10.1.0",
     "@angular/router": "~10.1.0",
+    "angular-emoji": "^0.1.45",
+    "ng-emoji-picker": "^6.0.1",
     "ngx-socket-io": "^3.2.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",

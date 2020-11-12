@@ -30,7 +30,17 @@
     <!-- Item 2 -->
     <div class="leftMargin chatBox"  #scrollme [scrollTop]="scrollme.scrollHeight" fxFlex fxLayout="column" >
       <div class="float talk-bubble tri-right left-top talktext" [ngStyle]="{'margin-left': message.margin}" *ngFor="let message of messageList">
-        <p><small>{{ message.sender }} : </small></p>{{ message.message }}
+        <!--<p><small>{{ message.sender }} : </small></p>{{ message.message }}-->
+        <mat-card>
+          <mat-card-header>
+            <mat-card-subtitle class="sender">
+            {{message.sender}}
+          </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            {{message.message}}
+          </mat-card-content>
+        </mat-card>
       </div>
     </div>
     <!-- Item 3 -->
