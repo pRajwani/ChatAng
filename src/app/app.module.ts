@@ -19,11 +19,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { SignupComponent } from './signup/signup.component';
+import { SearchPipe } from './search.pipe';
 
 const config: SocketIoConfig = { url: 'https://localhost:3443', options: {} };
 
 @NgModule({
-  declarations: [AppComponent, ChatComponent, LoginComponent, SignupComponent],
+  declarations: [AppComponent, ChatComponent, LoginComponent, SignupComponent, SearchPipe],
   imports: [
     BrowserModule,
     AppRoutingModule,

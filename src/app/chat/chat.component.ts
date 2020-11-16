@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ChatService } from '../services/chat.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -7,7 +7,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
 })
-export class ChatComponent implements OnInit {
+
+export class ChatComponent implements OnInit{
+
+  public transform(value, keys: string, term: string) {
+
+    if (!term) return value;
+    return (value || []).filter(item => keys.split(',').some(key => item.hasOwnProperty(key) && new RegExp(term, 'gi').test(item[key])));
+
+  }
 
   newMessage = {
     sender: localStorage.getItem('name'),
@@ -15,6 +23,8 @@ export class ChatComponent implements OnInit {
   };
   messageList = [];
   users = [];
+  query;
+   
   constructor(
     private chatService: ChatService,
     private snackbar: MatSnackBar
@@ -30,8 +40,7 @@ export class ChatComponent implements OnInit {
   sendMessage() {
     var localMessage = {
       sender: 'Me',
-      message: '',
-      margin: 'auto'
+      message: ''
     };
     localMessage.message = this.newMessage.message;
     this.pushMessage(localMessage);
@@ -44,7 +53,6 @@ export class ChatComponent implements OnInit {
       messages.forEach((message) => {
         if (message.sender == localStorage.getItem('name')){
           message.sender = 'Me';
-          message.margin = 'auto';
         }
         this.pushMessage(message);
       });
