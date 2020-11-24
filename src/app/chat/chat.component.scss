@@ -68,14 +68,8 @@
 }
 
 .float {
-<<<<<<< HEAD
-  margin-bottom: 2px;
-  width: 20vw;
-  //background-color: greenyellow;
-=======
   width: 30vw;
   background-color: greenyellow;
->>>>>>> 46213691c33d3323f1c15dda7ec0d20a7de08c5e
   float: right;
 }
 .float-out {
@@ -91,21 +85,12 @@
   background: transparent; /* Optional: just make scrollbar invisible */
 }
 
-<<<<<<< HEAD
-/*.talk-bubble {
-  margin: 20px;
-=======
 .talk-bubble {
   margin: 3%;
->>>>>>> 46213691c33d3323f1c15dda7ec0d20a7de08c5e
   display: inline-block;
   position: relative;
   width: 350px;
   height: auto;
-<<<<<<< HEAD
-  //background-color: lightyellow;
-=======
->>>>>>> 46213691c33d3323f1c15dda7ec0d20a7de08c5e
 }
 
 .talk-bubble-out {
@@ -114,13 +99,8 @@
   position: relative;
   width: 350px;
   height: auto;
-<<<<<<< HEAD
-  // background-color: lightyellow;
-}*/
-=======
   background-color: grey;
 }
->>>>>>> 46213691c33d3323f1c15dda7ec0d20a7de08c5e
 
 .tri-right.border.left-top:before {
   content: " ";

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { ActivatedRoute, Router } from "@angular/router";
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -14,26 +15,23 @@ export class LoginComponent implements OnInit {
     username:'',
     password:''
   }
-  constructor(private http:HttpClient,private route:Router,private router:ActivatedRoute) { }
+  constructor(private http:HttpClient,private route:Router,private router:ActivatedRoute, private userService:UserService) { }
 
   ngOnInit(): void {
     this.router.queryParams
       .subscribe(params => {
         if(params.code) {
-          this.checkCode(params).subscribe((status:any)=>{
+          this.userService.checkCode(params.code).subscribe((status:any)=>{
             if(status.resp==true){
-              this.username=params.name
-              console.log(this.username)
-              localStorage.setItem('name',this.username)
-              localStorage.setItem('authCode',params.code)
+              this.username=status.user.name;
+              localStorage.setItem('name',this.username);
+              localStorage.setItem('authCode',params.code);
               this.route.navigate(['/chat'])
             } 
             else
             this.route.navigate(['/'])
           });
-        }
-        console.log(params.code);
-        
+        }        
   })
 }
 

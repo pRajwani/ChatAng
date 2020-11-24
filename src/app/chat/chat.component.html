@@ -16,8 +16,8 @@
       <span>Friends</span>
     </mat-toolbar>
     <input class="searchUser" [(ngModel)]="query" type="text" placeholder="Type here to find your friend">
-      <div class="user leftMargin" *ngFor="let user of users | search:'name':query">
-        <h4>{{ user.name }}</h4>
+      <div class="user leftMargin" *ngFor="let room of rooms | search:'roomName':query" (click)="getRoomMessages(room)">
+        <h4>{{ room.roomName }}</h4>
         <small>Last message</small>
     </div>
   </div>
@@ -29,34 +29,13 @@
     </mat-toolbar>
     <!-- Item 2 -->
     <div class="leftMargin chatBox"  #scrollme [scrollTop]="scrollme.scrollHeight" fxFlex fxLayout="column" >
-<<<<<<< HEAD
-      <div class="float talk-bubble tri-right left-top talktext" [ngStyle]="{'margin-left': message.margin}" *ngFor="let message of messageList">
-        <!--<p><small>{{ message.sender }} : </small></p>{{ message.message }}-->
-        <mat-card>
-          <mat-card-header>
-            <mat-card-subtitle class="sender">
-            {{message.sender}}
-          </mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
-            {{message.message}}
-          </mat-card-content>
-        </mat-card>
-=======
       <div 
-        class="float talk-bubble tri-right left-top talktext" 
-        [ngClass]="{'left-top': message.sender != 'Me',
-                    'left-top-out': message.sender == 'Me', 
-                    'tri-right': message.sender != 'Me', 
-                    'tri-right-out': message.sender == 'Me'
-                   }"
-        [ngStyle]="{'margin-left': message.sender == 'Me' ? 'auto':'20px', 
-                    'color': message.sender == 'Me' ? 'aliceblue':'#000',
-                    'background-color': message.sender == 'Me' ? '#0048AA':' #f5f5f5'
-                    }" 
-        *ngFor="let message of messageList">
-        <p><small>{{ message.sender }} : </small></p>{{ message.message }}
->>>>>>> 46213691c33d3323f1c15dda7ec0d20a7de08c5e
+        class="float talk-bubble " 
+       
+        *ngFor="let message of roomMessages">
+        <mat-card color="primary">
+          <mat-card-content>{{message.message}}</mat-card-content>
+        </mat-card>
       </div>
     </div>
     <!-- Item 3 --> 
@@ -65,7 +44,7 @@
         <input
           matInput
           placeholder="Enter your message"
-          [(ngModel)]="newMessage.message"
+          [(ngModel)]="text"
           (keyup)="$event.keyCode == 13 && sendMessage()"
         />
       </mat-form-field>

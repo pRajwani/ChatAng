@@ -16,7 +16,7 @@ export class ChatService {
   }
 
   public getMessages() {
-    return Observable.create((observer) => {
+    return new Observable((observer) => {
       this.socket.on('new-msg', (message) => {
         observer.next(message);
       });
@@ -24,18 +24,22 @@ export class ChatService {
   }
 
   public getNotification() {
-    return Observable.create((observer) => {
+    return new Observable((observer) => {
       this.socket.on('notification', (data) => {
         observer.next(data);
       });
     });
   }
 
-  public getUsers(): Observable<any> {
-    return this.http.get('https://localhost:3443/users/getUsers');
+  public getRooms(userId): Observable<any> {
+    return this.http.post('https://localhost:3443/users/getRooms',{userId:userId});
   }
 
-  public getOldMessages(): Observable<any> {
-    return this.http.get('https://localhost:3443/message');
+  public getOldMessages(userId): Observable<any> {
+    return this.http.post('https://localhost:3443/message', {userId:userId});
+  }
+
+  public joinRoom(rooms){
+    this.socket.emit('joinRoom',rooms)
   }
 }
