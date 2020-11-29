@@ -44,16 +44,13 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  localLogin(){
-    this.http.post('https://localhost:3443/localLogin',this.userData).subscribe((status:any)=>{
-      if(status.success==true) {
-        localStorage.setItem('name', status.user)
+  async localLogin(){
+    var user = await this.userService.localLogin(this.userData)
+      if(user)
         this.route.navigate(['/chat'])
-      }
-        else 
+      else 
         alert('cannot login')
-    })
-  }
+    }
 
   checkCode(params){
     return this.http.post('https://localhost:3443/checkCode',{code:params.code})
