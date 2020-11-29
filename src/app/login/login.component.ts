@@ -13,7 +13,8 @@ export class LoginComponent implements OnInit {
   username
   userData={ 
     username:'',
-    password:''
+    password:'',
+    code:1
   }
   constructor(private http:HttpClient,private route:Router,private router:ActivatedRoute, private userService:UserService) { }
 
@@ -47,7 +48,10 @@ export class LoginComponent implements OnInit {
   localLogin(){
     this.http.post('https://localhost:3443/localLogin',this.userData).subscribe((status:any)=>{
       if(status.success==true) {
-        localStorage.setItem('name', status.user)
+        this.userService.checkCode(status.code).subscribe((resp:any)=> {
+          if(resp.resp==true) localStorage.setItem('authCode', status.code)
+          else this.route.navigate(['/']);
+        })
         this.route.navigate(['/chat'])
       }
         else 
