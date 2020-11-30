@@ -1,29 +1,46 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ThrowStmt } from '@angular/compiler';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-  Token;
-  user;
-  constructor(private http:HttpClient){}
-  checkCode(code){
-    return this.http.post('https://localhost:3443/checkCode',{code:code})
-    }
+  private Token;
+  private user;
+  constructor(private http: HttpClient) {}
 
-  async localLogin(userData):Promise<Observable<any>> {
-    this.Token = await this.http.post('https://localhost:3443/localLogin', userData);
-    this.user = await this.http.get('https://localhost:3443/users/getUserDetails');
-    return this.user;
+  localLogin(userData): Observable<any> {
+    return this.http
+      .post('https://localhost:3443/localLogin', userData)
+      .pipe(catchError(this.handleError));
   }
 
-  getUser(){
-    if(this.user)
-      return this.user;
+  setUserDetails(Token?): Observable<any> {
+    this.Token = Token;
+    return this.http.get('https://localhost:3443/users/getUserDetails');
+  }
+
+  getAToken(): Observable<any> {
+    return this.http.get('https://localhost:3443/checkCode');
+  }
+
+  getToken() {
+    return this.Token;
   }
 
   
+  handleError(error: HttpErrorResponse | any) {
+    let errMsg: string;
+
+    if (error.error instanceof ErrorEvent) {
+      errMsg = error.error.message;
+    } else {
+      errMsg = `${error.status} - ${error.statusText || ''} ${error.message}`;
+      console.log(errMsg)
+    }
+    return throwError(errMsg);
+  }
 }

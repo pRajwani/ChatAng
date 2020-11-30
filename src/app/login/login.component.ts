@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { ActivatedRoute, Router } from "@angular/router";
 import { UserService } from '../services/user.service';
+import { Token } from '@angular/compiler/src/ml_parser/lexer';
 
 @Component({
   selector: 'app-login',
@@ -19,21 +20,7 @@ export class LoginComponent implements OnInit {
   constructor(private http:HttpClient,private route:Router,private router:ActivatedRoute, private userService:UserService) { }
 
   ngOnInit(): void {
-    this.router.queryParams
-      .subscribe(params => {
-        if(params.code) {
-          this.userService.checkCode(params.code).subscribe((status:any)=>{
-            if(status.resp==true){
-              this.username=status.user.name;
-              localStorage.setItem('name',this.username);
-              localStorage.setItem('authCode',params.code);
-              this.route.navigate(['/chat'])
-            } 
-            else
-            this.route.navigate(['/'])
-          });
-        }        
-  })
+    
 }
 
   facebookLogin(){
@@ -45,16 +32,16 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  async localLogin(){
-    var user = await this.userService.localLogin(this.userData)
-      if(user)
+  localLogin(){
+    this.userService.localLogin(this.userData).subscribe((Token) => { 
+      if(Token !=undefined) {
+        console.log(Token)
+        this.userService.setUserDetails(Token).subscribe() ;
         this.route.navigate(['/chat'])
+      }
       else 
-        alert('cannot login')
-    }
-
-  checkCode(params){
-    return this.http.post('https://localhost:3443/checkCode',{code:params.code})
-    }
+      alert('cannot login')  
+    })
+  }
 
 }

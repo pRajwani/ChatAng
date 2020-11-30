@@ -8,7 +8,7 @@ import { ChatComponent } from './chat/chat.component';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDividerModule } from '@angular/material/divider';
@@ -20,6 +20,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { SignupComponent } from './signup/signup.component';
 import { SearchPipe } from './search.pipe';
+import { AuthInterceptor } from './services/auth.interceptor';
 
 const config: SocketIoConfig = { url: 'https://localhost:3443', options: {} };
 
@@ -43,7 +44,7 @@ const config: SocketIoConfig = { url: 'https://localhost:3443', options: {} };
     MatIconModule,
     MatCardModule
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi: true}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

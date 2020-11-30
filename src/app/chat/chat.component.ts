@@ -1,14 +1,15 @@
-import { Component, ElementRef, OnInit, ViewChild, AfterViewChecked } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, AfterViewChecked, AfterViewInit } from '@angular/core';
 import { ChatService } from '../services/chat.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../services/user.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
 })
-export class ChatComponent implements OnInit, AfterViewChecked {
+export class ChatComponent implements OnInit, AfterViewChecked{
   messageList = [];
   rooms = [];
   query;
@@ -23,62 +24,55 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   constructor(
     private chatService: ChatService,
     private userService: UserService,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private router:ActivatedRoute
     ) {}
   
     ngAfterViewChecked() {
-    const newMessage = this.myScrollContainer.nativeElement.lastElementChild;
-
-    const newMessageStyles = getComputedStyle(newMessage);
-    const newMessageMargin = parseInt(newMessageStyles.marginBottom);
-    const newMessageHeight = newMessage.offsetHeight + newMessageMargin;
-
-    const visibleHeight = this.myScrollContainer.nativeElement.offsetHeight;
-    const containerHeight = this.myScrollContainer.nativeElement.scrollHeight;
-    const scrollOffset = this.myScrollContainer.nativeElement.scrollTop + visibleHeight;
-
-    console.log(containerHeight - newMessageHeight <= scrollOffset)
-
-    if(containerHeight - newMessageHeight <= scrollOffset) {
       this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-      
     }
-    }
-
-    private onScroll() {
-      let element = this.myScrollContainer.nativeElement
-      let atBottom = element.scrollHeight - element.scrollTop === element.clientHeight
-      if (this.disableScrollDown && atBottom) {
-          this.disableScrollDown = false
-      } else {
-          this.disableScrollDown = true
-      }
+ 
+    async ngOnInit() {
+      console.log("in Chat Component")
+      this.router.queryParams.subscribe((params)=> {
+        if(params.atok) {
+          this.userService.setUserDetails(params.atok).subscribe((userData)=> {
+            this.user = userData;
+            this.setup();
+          })
+        }
+        else {
+          var token = this.userService.getToken()
+          if(!token) {
+            this.userService.getAToken().subscribe((token)=>{
+            if(token.status == false){
+              console.log(token.result);
+              return;
+            }
+            this.userService.setUserDetails(token.result).subscribe((userData)=>{
+              this.user = userData;
+              console.log(this.user);
+              this.setup();
+              })
+            })
+          }
+          else {
+            this.userService.setUserDetails(token).subscribe((userData)=>{
+              this.user = userData;
+              this.setup();
+            })
+          }
+        }
+      }); 
   }
 
-
-  private scrollToBottom(): void {
-      if (this.disableScrollDown) {
-          return
-      }
-      try {
-          this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-      } catch(err) { }
-  }
-    ngOnInit() {
-    this.scroll = document.querySelector('#scrollme')
-    console.log(this.scroll.lastElementChild)
-    this.userService
-      .checkCode(JSON.stringify(localStorage.getItem('authCode')))
-      .subscribe((status: any) => {
-        console.log(status)
-        this.user = status.user;
-        this.getRooms(this.user._id);
-        this.getOldMessages(this.user._id);
-      });
+  setup() {
+    console.log("setup", this.user)
+    this.getRooms(this.user._id);
+    this.getOldMessages(this.user._id);
     this.getMessages();
     this.getNotification();
   }
-
   sendMessage() {
     this.newMessage = {
       sender: this.user._id,
@@ -91,7 +85,6 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     this.pushMessage(this.newMessage);
     this.chatService.sendMessage(this.newMessage);
     this.text = '';
-    //this.autoScroll(document.querySelector("#scrollme"));
 
   }
 
@@ -106,9 +99,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     this.roomMessages = [];
     this.messageList.forEach((message) => {
       if (message.roomId == room._id) this.roomMessages.push(message);
-      
     });
-    //this.autoScroll(this.scroll);
   }
 
   getRooms(userId) {
@@ -122,7 +113,6 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     this.chatService.getMessages().subscribe(async (msg) => {
       await this.pushMessage(msg);
       console.log("new message")
-      //await this.autoScroll(document.querySelector("#scrollme"));
     });
     
   }
@@ -136,30 +126,6 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   pushMessage(message) {
     this.roomMessages.push(message);
     this.messageList.push(message);
-    //this.autoScroll(document.querySelector("#scrollme"));
-
   }
 
-  autoScroll(scroll) {
-    console.log("autoscroll")
-    console.log(scroll.lastElementChild)
-    const newMessage = scroll.lastElementChild;
-    
-
-    const newMessageStyles = getComputedStyle(newMessage);
-    const newMessageMargin = parseInt(newMessageStyles.marginBottom);
-    const newMessageHeight = newMessage.offsetHeight + newMessageMargin;
-
-    const visibleHeight = scroll.offsetHeight;
-    const containerHeight = scroll.scrollHeight;
-    const scrollOffset = scroll.scrollTop + visibleHeight;
-
-    console.log(containerHeight, scrollOffset)
-
-    scroll.scrollTop = scroll.scrollHeight;
-    if(containerHeight - newMessageHeight <= scrollOffset) {
-      
-    }
-   
-  }
 }
