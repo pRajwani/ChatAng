@@ -18,14 +18,16 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 import { SignupComponent } from './signup/signup.component';
 import { SearchPipe } from './search.pipe';
 import { AuthInterceptor } from './services/auth.interceptor';
+import { NewChatRoomComponent } from './new-chat-room/new-chat-room.component';
 
 const config: SocketIoConfig = { url: 'https://localhost:3443', options: {} };
 
 @NgModule({
-  declarations: [AppComponent, ChatComponent, LoginComponent, SignupComponent, SearchPipe],
+  declarations: [AppComponent, ChatComponent, LoginComponent, SignupComponent, SearchPipe, NewChatRoomComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -42,7 +44,8 @@ const config: SocketIoConfig = { url: 'https://localhost:3443', options: {} };
     MatSnackBarModule,
     MatToolbarModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi: true}],
   bootstrap: [AppComponent],

@@ -15,6 +15,10 @@ export class ChatService {
     this.socket.emit('new-msg', message);
   }
 
+  public newRoom(room) {
+    this.socket.emit('newChatRoom', room);
+  }
+
   public getMessages() {
     return new Observable((observer) => {
       this.socket.on('new-msg', (message) => {

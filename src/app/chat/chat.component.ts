@@ -3,6 +3,8 @@ import { ChatService } from '../services/chat.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../services/user.service';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from "@angular/material/dialog";
+import { NewChatRoomComponent } from '../new-chat-room/new-chat-room.component';
 
 @Component({
   selector: 'app-chat',
@@ -27,7 +29,8 @@ export class ChatComponent implements OnInit, AfterViewChecked{
     private chatService: ChatService,
     private userService: UserService,
     private snackbar: MatSnackBar,
-    private router:ActivatedRoute
+    private router:ActivatedRoute,
+    private matDialog: MatDialog
     ) {}
   
     ngAfterViewChecked() {
@@ -40,6 +43,7 @@ export class ChatComponent implements OnInit, AfterViewChecked{
         if(params.atok) {
           this.userService.setUserDetails(params.atok).subscribe((userData)=> {
             this.user = userData;
+            this.userService.setUser(this.user);
             this.setup();
           })
         }
@@ -53,6 +57,7 @@ export class ChatComponent implements OnInit, AfterViewChecked{
             }
             this.userService.setUserDetails(token.result).subscribe((userData)=>{
               this.user = userData;
+              this.userService.setUser(this.user);
               console.log(this.user);
               this.setup();
               })
@@ -61,6 +66,7 @@ export class ChatComponent implements OnInit, AfterViewChecked{
           else {
             this.userService.setUserDetails(token).subscribe((userData)=>{
               this.user = userData;
+              this.userService.setUser(this.user);
               this.setup();
             })
           }
@@ -136,6 +142,10 @@ export class ChatComponent implements OnInit, AfterViewChecked{
     if(this.room._id == message.roomId)
     this.roomMessages.push(message);
     this.messageList.push(message);
+  }
+
+  openNewRoom() {
+    this.matDialog.open(NewChatRoomComponent)
   }
 
 }

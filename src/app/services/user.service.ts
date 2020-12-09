@@ -31,6 +31,14 @@ export class UserService {
     return this.Token;
   }
 
+  setUser(user) {
+    this.user = user;
+  }
+
+  getUser() {
+    return this.user;
+  }
+
   
   handleError(error: HttpErrorResponse | any) {
     let errMsg: string;
