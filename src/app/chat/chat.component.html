@@ -28,14 +28,12 @@
       <span>Chat Section</span>
     </mat-toolbar>
     <!-- Item 2 -->
-    <div class="leftMargin chatBox" id="scrollme" #scrollme  fxFlex fxLayout="column" >
+    <div class="leftMargin chatBox" id="scrollme" #scrollme  fxFlex fxLayout="column" > 
       <div 
-        class="float talk-bubble " 
-       
-        *ngFor="let message of roomMessages">
-        <mat-card color="primary">
-          <mat-card-content>{{message.message}}</mat-card-content>
-        </mat-card>
+        class="talktext" 
+        [ngClass]="message.outgoing==true ? 'talk-bubble-out':'talk-bubble' "
+        *ngFor="let message of roomMessages" >
+          {{message.message}}
       </div>
     </div>
     <!-- Item 3 --> 

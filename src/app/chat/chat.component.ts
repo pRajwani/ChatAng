@@ -16,11 +16,13 @@ export class ChatComponent implements OnInit, AfterViewChecked{
   user;
   roomMessages = [];
   newMessage;
+  newLocalMessage;
   text;
   room;
   scroll;
   disableScrollDown = false;
   @ViewChild('scrollme') myScrollContainer:ElementRef;
+  outgoing: boolean = false;
   constructor(
     private chatService: ChatService,
     private userService: UserService,
@@ -66,6 +68,7 @@ export class ChatComponent implements OnInit, AfterViewChecked{
       }); 
   }
 
+
   setup() {
     console.log("setup", this.user)
     this.getRooms(this.user._id);
@@ -79,11 +82,17 @@ export class ChatComponent implements OnInit, AfterViewChecked{
       roomId: this.room._id,
       message: this.text,
     };
+    this.newLocalMessage = {
+      sender: this.user._id,
+      roomId: this.room._id,
+      message: this.text,
+      outgoing: true
+    };
     this.room.participants.forEach((participant) => {
       if (participant != this.user._id) this.newMessage.reciever = participant;
     });
-    this.pushMessage(this.newMessage);
     this.chatService.sendMessage(this.newMessage);
+    this.pushMessage(this.newLocalMessage);
     this.text = '';
 
   }
@@ -93,14 +102,15 @@ export class ChatComponent implements OnInit, AfterViewChecked{
       this.messageList = messages;
     });
   }
-
+  
   getRoomMessages(room) {
     this.room = room;
     this.roomMessages = [];
     this.messageList.forEach((message) => {
+      if(message.sender._id == this.user._id) message.outgoing = true;
       if (message.roomId == room._id) this.roomMessages.push(message);
     });
-  }
+  } 
 
   getRooms(userId) {
     this.chatService.getRooms(userId).subscribe((rooms) => {
@@ -112,7 +122,6 @@ export class ChatComponent implements OnInit, AfterViewChecked{
   getMessages() {
     this.chatService.getMessages().subscribe(async (msg) => {
       await this.pushMessage(msg);
-      console.log("new message")
     });
     
   }
@@ -124,6 +133,7 @@ export class ChatComponent implements OnInit, AfterViewChecked{
   }
 
   pushMessage(message) {
+    if(this.room._id == message.roomId)
     this.roomMessages.push(message);
     this.messageList.push(message);
   }
